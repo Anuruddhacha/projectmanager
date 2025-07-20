@@ -16,11 +16,10 @@ public class Issue {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String title;
     private String description;
     private String status;
-    private Long projectId;
+    private String projectID;
     private String priority;
     private LocalDate dueData;
     private List<String> tags = new ArrayList<>();
