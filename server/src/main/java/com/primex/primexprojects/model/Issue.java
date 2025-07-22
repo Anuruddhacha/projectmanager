@@ -19,9 +19,9 @@ public class Issue {
     private String title;
     private String description;
     private String status;
-    private String projectID;
+    private Long projectID;
     private String priority;
-    private LocalDate dueData;
+    private LocalDate dueDate;
     private List<String> tags = new ArrayList<>();
 
     @ManyToOne
