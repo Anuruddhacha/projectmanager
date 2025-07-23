@@ -7,6 +7,7 @@ import com.primex.primexprojects.repository.UserRepository;
 import com.primex.primexprojects.request.LoginRequest;
 import com.primex.primexprojects.response.AuthResponse;
 import com.primex.primexprojects.service.CustomUserDetailsImpl;
+import com.primex.primexprojects.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,9 @@ public class AuthController {
     @Autowired
     private CustomUserDetailsImpl customUserDetails;
 
+    @Autowired
+    private SubscriptionService subscriptionService;
+
     @GetMapping("/ping")
     public String ping()
     {
@@ -52,6 +56,8 @@ public class AuthController {
         createdUser.setFullName(user.getFullName());
 
         User savedUser = userRepository.save(createdUser);
+
+        subscriptionService.createSubscription(savedUser);
 
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
