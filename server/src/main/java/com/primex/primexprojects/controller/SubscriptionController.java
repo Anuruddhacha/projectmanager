@@ -24,13 +24,12 @@ public class SubscriptionController {
 
     @GetMapping("/user")
     public ResponseEntity<Subscription> getUserSubscription(@RequestHeader("Authorization") String jwt
-                                                            ) throws Exception {
+    ) throws Exception {
 
         User user = userService.findUserProfileByJwt(jwt);
         Subscription subscription = subscriptionService.getUserSubscription(user.getId());
 
         return new ResponseEntity<>(subscription, HttpStatus.OK);
-
     }
 
 
@@ -38,14 +37,12 @@ public class SubscriptionController {
     public ResponseEntity<Subscription> upgradeSubscription(
             @RequestHeader("Authorization") String jwt,
             @RequestParam PlanType planType
-            ) throws Exception {
+    ) throws Exception {
 
         User user = userService.findUserProfileByJwt(jwt);
         Subscription subscription = subscriptionService.upgradeSubscription(user.getId(), planType);
         return new ResponseEntity<>(subscription, HttpStatus.OK);
-
     }
-
 
 
 }
