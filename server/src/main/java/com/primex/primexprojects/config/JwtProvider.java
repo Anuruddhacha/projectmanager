@@ -14,13 +14,7 @@ import java.util.Date;
 
 public class JwtProvider {
 
-    //static SecretKey key = Keys.hmacShaKeyFor(JwtConstants.SECRET_KEY.getBytes());
-    private static final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-
-   /* Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJwt(jwt).getBody();
-
-    String email = String.valueOf(claims.get("email"));
-    String authorities = String.valueOf(claims.get("authorities"));*/
+    static SecretKey key = Keys.hmacShaKeyFor(JwtConstants.SECRET_KEY.getBytes());
 
     public static String generateToken(Authentication auth) {
         //Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
@@ -37,7 +31,8 @@ public class JwtProvider {
 
 
     public static String getEmailFromToken(String jwt) {
-        Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJwt(jwt).getBody();
+        jwt = jwt.substring(7);
+        Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
         return String.valueOf(claims.get("email"));
     }
 }
