@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Card, CardContent} from '../../components/ui/card'
 import {ScrollArea} from '../../components/ui/scroll-area'
 import { Button } from '../../components/ui/button'
 import { Icon } from 'lucide-react'
-import { MixerHorizontalIcon } from '@radix-ui/react-icons'
+import { MagnifyingGlassIcon, MixerHorizontalIcon } from '@radix-ui/react-icons'
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
+import ProjectCard from '../project/ProjectCard'
 
 const tags = [
   "all",
@@ -20,9 +22,14 @@ const tags = [
   "django"]
 
 const ProjectList = () => {
+  const [keyword, setKeyword] = useState("");
 
   const handleFilterChanged = (section, value) =>{
     console.log(value, section);
+  }
+
+  const handleSearchChange = (e)=>{
+   setKeyword(e.target.value)
   }
   return (
      <div className='relative px-5 lg:px-0 lg:flex gap-5 justify-center py-5'>
@@ -81,7 +88,23 @@ const ProjectList = () => {
         </Card>
       </section>
       <section className='projectListSection w-full lg:w-[48rem]'>
-        
+        <div className='flex gap-2 items-center pb-5 justify-between'>
+
+          <div className='relative p-0 w-full'>
+            <Input placeholder="search projects" onChange={handleSearchChange} className="40% px-9"/>
+            <MagnifyingGlassIcon className='absolute top-3 left-4'/>
+          </div>
+        </div>
+
+        <div>
+          <div className='space-y-5 min-h-[74vh]'>
+            {
+              keyword?[1,1,1].map((item) => <ProjectCard key={item}/>)
+              :[1,1,1,1].map((item) => <div key={item}>project card</div>)
+            }
+          </div>
+        </div>
+
       </section>
     </div>
   )
