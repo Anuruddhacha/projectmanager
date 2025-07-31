@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import ProjectCard from '../project/ProjectCard'
 
-const tags = [
+export const tags = [
   "all",
   "react",
   "nextjs",
